@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <a href="index.html">⬅ Back to Home</a>
+
+    <div id="movieDetails"></div>
+
+    <h2>Add Review</h2>
+
+<input
+  type="number"
+  id="rating"
+  min="1"
+  max="5"
+  placeholder="Rating"
+/>
+
+<br><br>
+
+<textarea
+  id="review"
+  placeholder="Write your review"
+></textarea>
+
+<br><br>
+
+<button onclick="addReview()">
+  Submit Review
+</button>
+
+    <h2>Reviews</h2>
+    <div id="reviews"></div>
+
+    <script src="js/movie.js"></script>
+
+</body>
+</html>
