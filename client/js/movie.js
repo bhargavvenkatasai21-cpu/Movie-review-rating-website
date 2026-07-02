@@ -1,3 +1,10 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+    // alert("Please login first.");
+    window.location.href = "login.html";
+}
+
 const params = new URLSearchParams(window.location.search);
 
 const movieId = params.get("id");
@@ -135,6 +142,15 @@ async function addReview() {
   } catch (error) {
     alert(error.message);
   }
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  alert("Logged out successfully.");
+
+  window.location.href = "login.html";
 }
 
 loadMovieDetails();

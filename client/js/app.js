@@ -1,4 +1,20 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+  // alert("Please login first.");
+  window.location.href = "login.html";
+}
+
 const moviesDiv = document.getElementById("movies");
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  alert("Logged out successfully.");
+
+  window.location.href = "login.html";
+}
 
 async function searchMovie() {
   const query = document.getElementById("searchInput").value;
@@ -19,9 +35,8 @@ async function searchMovie() {
     movieCard.innerHTML = `
       <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
       <h3>${movie.title}</h3>
-      <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>                      
+      <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>
       <p>${movie.release_date}</p>
-      
     `;
 
     movieCard.addEventListener("click", () => {
@@ -39,6 +54,8 @@ async function loadMovies() {
 
   const data = await response.json();
 
+  moviesDiv.innerHTML = "";
+
   data.results.forEach(movie => {
     const movieCard = document.createElement("div");
 
@@ -47,7 +64,7 @@ async function loadMovies() {
     movieCard.innerHTML = `
       <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
       <h3>${movie.title}</h3>
-      <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>             
+      <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>
       <p>${movie.release_date}</p>
     `;
 
