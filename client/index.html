@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Review Website</title>
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>Movie Review Website</h1>
-    <input type="text" id="searchInput" placeholder="Search Movies">
-<button onclick="searchMovie()">Search</button>
+    <nav class="navbar">
 
-<button id="logoutBtn" onclick="logout()">
-    Logout
-</button>
+        <h1 class="logo">🎬 Movie Review System</h1>
 
-    <div id="movies"></div>
+        <div class="nav-right">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search movies..."
+            >
+
+            <button onclick="searchMovie()">
+                Search
+            </button>
+
+            <button id="logoutBtn" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+    <section class="hero">
+
+        <h2>Popular Movies</h2>
+
+        <p>
+            Search your favourite movies and share your reviews.
+        </p>
+
+    </section>
+
+    <div id="movies" class="movies-container"></div>
 
     <script src="js/app.js"></script>
 

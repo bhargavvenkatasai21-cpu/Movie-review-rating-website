@@ -85,3 +85,30 @@ document
   });
 
 loadMovies();
+
+let lastScrollTop = 0;
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+
+    let currentScroll =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+    // Always show navbar at the very top
+    if (currentScroll <= 10) {
+        navbar.style.top = "0";
+        lastScrollTop = currentScroll;
+        return;
+    }
+
+    // Hide when scrolling down
+    if (currentScroll > lastScrollTop) {
+        navbar.style.top = "-80px";
+    }
+    // Show when scrolling up
+    else {
+        navbar.style.top = "0";
+    }
+
+    lastScrollTop = currentScroll;
+});
