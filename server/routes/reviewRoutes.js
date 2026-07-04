@@ -12,7 +12,6 @@ const { protect } = require("../middleware/authMiddleware");
 
 router.post("/", protect, addReview);
 router.get("/:movieId", getReviewsByMovie);
-
 router.put("/:id", protect, updateReview);
 router.delete("/:id", protect, deleteReview);
 

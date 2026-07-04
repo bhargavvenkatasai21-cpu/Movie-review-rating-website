@@ -29,9 +29,9 @@ body{
 
     z-index:1000;
 
-    transition:top .3s ease;
+    transition:top .3s ease-in-out;
 
-    box-shadow:0 2px 10px rgba(0,0,0,.2);
+    box-shadow:0 5px 12px 6px rgba(0,0,0,.2);
 }
 
 
@@ -193,5 +193,402 @@ button:hover{
         width:100%;
 
     }
+
+}
+
+ 
+   /* Movie Details Page */
+
+.movie-section{
+
+    max-width:1100px;
+
+    margin:40px auto;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    padding:30px;
+
+}
+
+#movieDetails{
+
+    display:flex;
+
+    gap:35px;
+
+    align-items:flex-start;
+
+    flex-wrap:wrap;
+
+}
+
+#movieDetails img{
+
+    width:320px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+
+}
+
+.movie-info{
+
+    flex:1;
+
+}
+
+.movie-info h1{
+
+    font-size:40px;
+
+    margin-bottom:15px;
+
+}
+
+.movie-info p{
+
+    font-size:18px;
+
+    line-height:1.7;
+
+    margin-bottom:12px;
+
+}
+ 
+   /* Review Section */
+ 
+.review-section{
+
+    max-width:1100px;
+
+    margin:30px auto;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.review-section h2{
+
+    margin-bottom:20px;
+
+}
+ 
+   /* Review Form */
+ 
+.review-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.review-form label{
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+}
+
+.review-form select{
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    font-size:16px;
+
+}
+
+.review-form textarea{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    border:1px solid #ccc;
+
+    font-size:16px;
+
+    resize:vertical;
+
+}
+
+.review-form button{
+
+    width:220px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+ 
+   /* Review Cards */
+  
+#reviews{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.review-card{
+
+    background:#f8f9fb;
+
+    padding:20px;
+
+    border-left:5px solid #2563eb;
+
+    border-radius:10px;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+}
+
+.review-card h4{
+
+    margin-bottom:8px;
+
+}
+
+.review-card p{
+
+    margin:6px 0;
+
+}
+
+   /* Responsive */
+
+@media(max-width:768px){
+
+    #movieDetails{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        text-align:center;
+
+    }
+
+    #movieDetails img{
+
+        width:250px;
+
+    }
+
+    .movie-info h1{
+
+        font-size:30px;
+
+    }
+
+}
+
+       /* rating */
+
+.star-rating{
+
+    display:flex;
+
+    gap:8px;
+
+    margin:15px 0;
+
+}
+
+.star{
+
+    font-size:40px;
+
+    cursor:pointer;
+
+    color:#d1d5db;
+
+
+    transition:.2s;
+
+}
+
+.star:hover{
+
+    transform:scale(1.2);
+
+}
+
+.star.active{
+
+    color:#FFD700;
+
+}
+
+#rating-text{
+
+    font: size 18px;
+
+    font-weight: bold;
+
+    color: #2563eb;
+
+    margin-bottom: 20px;
+
+    min-height: 25px;
+}
+
+/* edit&review buttons */
+
+.review-actions{
+
+    margin-top:15px;
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.review-actions button{
+
+    padding:8px 15px;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+.review-actions button:first-child{
+
+    background:#f59e0b;
+
+}
+
+.review-actions button:last-child{
+
+    background:#dc2626;
+
+}
+
+/* review stars */
+
+.review-card{
+    background:#fff;
+    margin-top:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.review-stars{
+    color:#fbbf24;
+    font-size:20px;
+    margin:10px 0;
+}
+
+.review-text{
+    color:#444;
+    line-height:1.6;
+}
+
+.review-date{
+    color:#777;
+    font-size:14px;
+    margin-top:10px;
+}
+
+.review-actions{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.review-actions button{
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.review-actions button:first-child{
+    background:#f59e0b;
+    color:white;
+}
+
+.review-actions button:last-child{
+    background:#dc2626;
+    color:white;
+}
+
+.review-actions button:hover{
+    opacity:.9;
+}
+
+/* Toast Notification */
+
+#toast{
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%, -50%) scale(.8);
+
+    background:#22c55e;
+    color:white;
+
+    padding:16px 30px;
+
+    border-radius:10px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.35s;
+
+    z-index:9999;
+}
+
+#toast.show{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:translate(-50%, -50%) scale(1);
 
 }

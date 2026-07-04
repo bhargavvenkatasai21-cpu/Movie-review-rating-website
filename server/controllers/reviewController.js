@@ -4,6 +4,17 @@ const addReview = async (req, res) => {
   try {
     const { movieId, rating, review } = req.body;
 
+    const existingReview = await Review.findOne({
+      movieId,
+      userId: req.user.id
+    });
+
+    if(existingReview){
+      return res.status(400).json({
+        message: "You have already reviewed this movie"
+      });
+    }
+
     const newReview = await Review.create({
       movieId,
       rating,
@@ -12,7 +23,8 @@ const addReview = async (req, res) => {
     });
 
     res.status(201).json(newReview);
-  } catch (error) {
+  } 
+    catch (error) {
     res.status(500).json({
       message: error.message
     });

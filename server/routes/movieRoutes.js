@@ -9,6 +9,6 @@ const {
 
 router.get("/popular", getPopularMovies);
 router.get("/search", searchMovies);
-router.get("/:id", getMovieDetails);
+router.get("/:id", getMovieDetails); 
 
 module.exports = router;

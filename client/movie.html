@@ -1,44 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Movie Details</title>
+
     <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
+ 
+    <div id="toast"></div> 
+    
+    <nav class="navbar">
 
-    <a href="index.html">⬅ Back to Home</a>
+        <h1 class="logo">🎬 Movie Review System</h1>
 
-    <div id="movieDetails"></div>
+        <div class="nav-right">
 
-    <h2>Add Review</h2>
+            <button
+                type="button"
+                onclick="window.location.href='index.html'">
+                🏠 Home
+            </button>
 
-<input
-  type="number"
-  id="rating"
-  min="1"
-  max="5"
-  placeholder="Rating"
-/>
+            <button
+                type="button"
+                id="logoutBtn"
+                onclick="logout()">
+                🚪 Logout
+            </button>
 
-<br><br>
+        </div>
 
-<textarea
-  id="review"
-  placeholder="Write your review"
-></textarea>
+    </nav>
 
-<br><br>
 
-<button onclick="addReview()">
-  Submit Review
-</button>
+          <!-- Movie Details -->
+ 
+    <section class="movie-section">
 
-    <h2>Reviews</h2>
-    <div id="reviews"></div>
+        <div id="movieDetails">
 
-    <button onclick="logout()">Logout</button>
+            <p>Loading movie details...</p>
+
+        </div>
+
+    </section>
+
+
+          <!-- Add Review -->
+ 
+    <section class="review-section">
+
+        <h2>⭐ Add Your Review</h2>
+
+        <div class="review-form">
+
+            <label for="rating">Rating</label>
+
+            <div class="star-rating">
+
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+
+            </div>
+
+            <p id="rating-text">
+                Select your rating
+            </p>
+
+            <input
+                type="hidden"
+                id="rating"
+            >
+
+            <label for="review">Review</label>
+
+            <textarea
+                id="review"
+                rows="5"
+                placeholder="Write your review here..."
+            ></textarea>
+
+            <button
+                type="button"
+                id="submitReviewBtn"
+                onclick="addReview()">
+                Submit Review
+            </button>
+
+        </div>
+
+    </section>
+
+
+          <!-- User Reviews -->
+ 
+    <section class="review-section">
+
+        <h2>📝 User Reviews</h2>
+
+        <div id="reviews">
+
+            <p>Loading reviews...</p>
+
+        </div>
+
+    </section>
+ 
 
     <script src="js/movie.js"></script>
 
 </body>
+
 </html>
