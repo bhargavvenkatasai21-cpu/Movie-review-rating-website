@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <div id="toast"></div>
+  
+    <nav class="navbar">
+
+        <h1 class="logo">🎬 Movie Review System</h1>
+
+        <div class="nav-right">
+
+            <button onclick="window.location.href='index.html'">
+                 Home
+            </button>
+
+             <button id="logoutBtn" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+ 
+
+    <section class="profile-section">
+
+        <h2>👤 My Profile</h2>
+
+        <div id="profileCard"></div>
+
+    </section>
+ 
+
+    <section class="review-section">
+
+        <h2>📝 My Reviews</h2>
+
+        <div id="myReviews"></div>
+
+    </section>
+
+    <script src="js/profile.js"></script>
+
+</body>
+
+</html>

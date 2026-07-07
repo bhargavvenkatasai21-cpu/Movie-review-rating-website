@@ -45,6 +45,26 @@ const getReviewsByMovie = async (req, res) => {
   }
 };
 
+const getMyReviews = async (req, res) => {
+  try {
+
+    const reviews = await Review.find({
+      userId: req.user.id
+    })
+      .populate("userId", "name email")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(reviews);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message
+    });
+
+  }
+};
+
 const updateReview = async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
@@ -105,6 +125,7 @@ const deleteReview = async (req, res) => {
 module.exports = {
   addReview,
   getReviewsByMovie,
+  getMyReviews,
   updateReview,
   deleteReview
 };
