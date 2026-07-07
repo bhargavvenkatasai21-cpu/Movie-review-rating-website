@@ -21,7 +21,7 @@ if (!movieId) {
 async function loadMovieDetails() {
     try {
         const response = await fetch(
-            `http://localhost:5000/api/movies/${movieId}`
+            `https://movie-review-rating-website.onrender.com/api/movies/${movieId}`
         );
 
         const movie = await response.json();
@@ -95,7 +95,7 @@ async function loadReviews() {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/reviews/${movieId}`
+            `https://movie-review-rating-website.onrender.com/api/reviews/${movieId}`
         );
 
         if (!response.ok) {
@@ -209,7 +209,7 @@ async function addReview() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/reviews",
+            "https://movie-review-rating-website.onrender.com/api/reviews",
             {
                 method: "POST",
                 headers: {
@@ -376,7 +376,7 @@ async function deleteReview(reviewId, button) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/reviews/${reviewId}`,
+            `https://movie-review-rating-website.onrender.com/api/reviews/${reviewId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -435,7 +435,7 @@ async function editReview(reviewId, currentRating, currentReview) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/reviews/${reviewId}`,
+            `https://movie-review-rating-website.onrender.com/api/reviews/${reviewId}`,
             {
                 method: "PUT",
                 headers: {

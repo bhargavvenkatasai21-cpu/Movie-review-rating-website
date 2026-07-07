@@ -23,7 +23,7 @@ async function loadMyReviews() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/reviews/myreviews",
+            "https://movie-review-rating-website.onrender.com/api/reviews/myreviews",
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -53,7 +53,7 @@ async function loadMyReviews() {
 
             // Get Movie Details
             const movieResponse = await fetch(
-                `http://localhost:5000/api/movies/${review.movieId}`
+                `https://movie-review-rating-website.onrender.com/api/movies/${review.movieId}`
             );
 
             const movie = await movieResponse.json();
@@ -181,7 +181,7 @@ async function deleteReview(reviewId) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/reviews/${reviewId}`,
+            `https://movie-review-rating-website.onrender.com/api/reviews/${reviewId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -230,7 +230,7 @@ async function editReview(reviewId, currentRating, currentReview) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/reviews/${reviewId}`,
+            `https://movie-review-rating-website.onrender.com/api/reviews/${reviewId}`,
             {
                 method: "PUT",
                 headers: {

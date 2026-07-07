@@ -40,7 +40,7 @@ async function searchMovie() {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/movies/search?query=${encodeURIComponent(query)}`
+            `https://movie-review-rating-website.onrender.com/api/movies/search?query=${encodeURIComponent(query)}`
         );
 
         const data = await response.json();
@@ -113,7 +113,7 @@ async function loadMovies(page = 1) {
     try {
 
         const response = await fetch(
-            `http://localhost:5000/api/movies/popular?page=${page}`
+            `https://movie-review-rating-website.onrender.com/api/movies/popular?page=${page}`
         );
 
         const data = await response.json();

@@ -7,7 +7,7 @@ async function register() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/auth/register",
+            "https://movie-review-rating-website.onrender.com/api/auth/register",
             {
                 method: "POST",
                 headers: {
