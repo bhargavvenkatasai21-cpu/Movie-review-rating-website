@@ -20,19 +20,29 @@ axiosRetry(tmdb, {
 
 const getPopularMovies = async (req, res) => {
   try {
+
+    const page = req.query.page || 1;
+
     const response = await tmdb.get(
-      `/movie/popular?api_key=${process.env.TMDB_API_KEY}`
+      `/movie/popular?api_key=${process.env.TMDB_API_KEY}&page=${page}`
     );
 
-    res.json(response.data);
+    res.status(200).json({
+      page: response.data.page,
+      totalPages: response.data.total_pages,
+      totalResults: response.data.total_results,
+      results: response.data.results
+    });
 
   } catch (error) {
+
     console.error("TMDB Popular Movies Error:", error.message);
 
     res.status(500).json({
       message: "Failed to fetch popular movies",
       error: error.message
     });
+
   }
 };
 

@@ -188,8 +188,7 @@ async function addReview() {
     // const token = localStorage.getItem("token"); 
 
     if (!token) {
-        // alert("Please login first.");
-        showToast("Please login first.", "#ef4444");
+         showToast("Please login first.", "#ef4444");
 
         return;
     }
@@ -198,8 +197,7 @@ async function addReview() {
     const review = document.getElementById("review").value.trim();
 
     if (rating < 1 || rating > 5|| !review) {
-        // alert("Please select a rating and enter your review.");
-        showToast("Please select a rating and enter your review.", "#ef4444");
+         showToast("Please select a rating and enter your review.", "#ef4444");
 
         return;
     }
@@ -231,8 +229,7 @@ async function addReview() {
         }));
 
         if (!response.ok) {
-            // alert(data.message);  
-            showToast(data.message, "#ef4444");
+             showToast(data.message, "#ef4444");
             return;
         }
         
@@ -250,8 +247,7 @@ async function addReview() {
 
     } catch (error) {
 
-        // alert(error.message);
-        showToast(error.message, "#ef4444");
+         showToast(error.message, "#ef4444");
 
     }
     finally {
@@ -286,36 +282,7 @@ function logout() {
     }, 1800);
 
 }
-
-// Toast Notification
-
-let toastTimer;
-
-function showToast(message, color = "#22c55e") {
-
-    const toast = document.getElementById("toast");
-
-    if (!toast) {
-        console.error("Toast element not found.");
-        return;
-    }
-
-    // Remove previous timer
-    clearTimeout(toastTimer);
-
-    // Update toast
-    toast.textContent = message;
-    toast.style.backgroundColor = color;
-
-    // Show toast
-    toast.classList.add("show");
-
-    // Hide toast automatically
-    toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 1800);
-
-}
+ 
  // Star Rating
  
 const stars = document.querySelectorAll(".star");

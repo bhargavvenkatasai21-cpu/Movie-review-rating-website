@@ -1,42 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Register</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
 
-<h1>Register</h1>
+    <div id="toast"></div>
 
-<input
-    type="text"
-    id="name"
-    placeholder="Enter Name"
-><br><br>
+    <div class="auth-container">
 
-<input
-    type="email"
-    id="email"
-    placeholder="Enter Email"
-><br><br>
+        <div class="auth-card">
 
-<input
-    type="password"
-    id="password"
-    placeholder="Enter Password"
-><br><br>
+            <h1>🎬 Movie Review</h1>
 
-<button onclick="register()">
-    Register
-</button>
+            <h2>Create Account</h2>
 
-<p>
-Already have an account?
-<a href="login.html">Login</a>
-</p>
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter Name"
+            >
 
-<script src="js/register.js"></script>
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter Email"
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+            >
+
+            <button onclick="register()">
+                Register
+            </button>
+
+            <p>
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/register.js"></script>
 
 </body>
+
 </html>

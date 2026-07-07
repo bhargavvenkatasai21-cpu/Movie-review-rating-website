@@ -24,11 +24,11 @@ async function register() {
         const data = await response.json();
 
         if (!response.ok) {
-            alert(data.message);
+            showToast(data.message, "#ef4444");
             return;
         }
 
-        alert("Registration Successful");
+        showToast("Registration Successful");
 
         window.location.href = "login.html";
 

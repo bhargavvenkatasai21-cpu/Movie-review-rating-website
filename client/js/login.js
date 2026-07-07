@@ -35,9 +35,12 @@ async function login() {
             JSON.stringify(data.user)
         );
 
-        alert("Login Successful");
+        showToast("Login Successful");
+
+        setTimeout(() => {
 
         window.location.href = "index.html";
+        }, 800);
 
     } catch (error) {
 

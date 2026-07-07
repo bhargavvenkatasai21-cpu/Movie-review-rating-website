@@ -1,94 +1,222 @@
 const token = localStorage.getItem("token");
 
 if (!token) {
-  // alert("Please login first.");
-  window.location.href = "login.html";
+    window.location.href = "login.html";
 }
 
 const moviesDiv = document.getElementById("movies");
 
+let currentPage = 1;
+let totalPages = 1;
+
+// Logout
+
 function logout() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
 
-  alert("Logged out successfully.");
+  showToast("Logged out successfully.");
 
-  window.location.href = "login.html";
+    setTimeout(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    
+
+    window.location.href = "login.html";
+    }, 800);
+
 }
+
+// Search Movies
 
 async function searchMovie() {
-  const query = document.getElementById("searchInput").value;
 
-  const response = await fetch(
-    `http://localhost:5000/api/movies/search?query=${query}`
-  );
+    const query = document.getElementById("searchInput").value.trim();
 
-  const data = await response.json();
+    if (!query) {
+        loadMovies();
+        return;
+    }
 
-  moviesDiv.innerHTML = "";
+    try {
 
-  data.results.forEach(movie => {
-    const movieCard = document.createElement("div");
+        const response = await fetch(
+            `http://localhost:5000/api/movies/search?query=${encodeURIComponent(query)}`
+        );
 
-    movieCard.classList.add("movie-card");
+        const data = await response.json();
 
-    movieCard.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
-      <h3>${movie.title}</h3>
-      <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>
-      <p>${movie.release_date}</p>
-    `;
+        if (!response.ok) {
+            moviesDiv.innerHTML = `<p>${data.message}</p>`;
+            return;
+        }
 
-    movieCard.addEventListener("click", () => {
-      window.location.href = `movie.html?id=${movie.id}`;
-    });
+        moviesDiv.innerHTML = "";
 
-    moviesDiv.appendChild(movieCard);
-  });
+        if (data.results.length === 0) {
+
+            moviesDiv.innerHTML = `
+                <p>No movies found.</p>
+            `;
+
+            return;
+
+        }
+
+        data.results.forEach(movie => {
+
+            const movieCard = document.createElement("div");
+
+            movieCard.classList.add("movie-card");
+
+            const poster = movie.poster_path
+                ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                : "https://via.placeholder.com/300x450?text=No+Image";
+
+            movieCard.innerHTML = `
+                <img src="${poster}" alt="${movie.title}">
+
+                <h3>${movie.title}</h3>
+
+                <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>
+
+                <p>${movie.release_date || "Unknown"}</p>
+            `;
+
+            movieCard.addEventListener("click", () => {
+                window.location.href = `movie.html?id=${movie.id}`;
+            });
+
+            moviesDiv.appendChild(movieCard);
+
+        });
+
+        // Disable pagination while searching
+        document.getElementById("pageNumber").textContent = "Search Results";
+
+        document.getElementById("prevBtn").disabled = true;
+        document.getElementById("nextBtn").disabled = true;
+
+    } catch (error) {
+
+        moviesDiv.innerHTML = `
+            <p>${error.message}</p>
+        `;
+
+    }
+
 }
 
-async function loadMovies() {
-  const response = await fetch(
-    "http://localhost:5000/api/movies/popular"
-  );
+// Load Popular Movies
 
-  const data = await response.json();
+async function loadMovies(page = 1) {
 
-  moviesDiv.innerHTML = "";
+    try {
 
-  data.results.forEach(movie => {
-    const movieCard = document.createElement("div");
+        const response = await fetch(
+            `http://localhost:5000/api/movies/popular?page=${page}`
+        );
 
-    movieCard.classList.add("movie-card");
+        const data = await response.json();
+        console.log(data);
 
-    movieCard.innerHTML = `
-      <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
-      <h3>${movie.title}</h3>
-      <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>
-      <p>${movie.release_date}</p>
-    `;
+        if (!response.ok) {
+            moviesDiv.innerHTML = `<p>${data.message}</p>`;
+            return;
+        }
 
-    movieCard.addEventListener("click", () => {
-      window.location.href = `movie.html?id=${movie.id}`;
-    });
+        currentPage = data.page;
+        totalPages = data.totalPages;
 
-    moviesDiv.appendChild(movieCard);
-  });
+        moviesDiv.innerHTML = "";
+
+        data.results.forEach(movie => {
+
+            const movieCard = document.createElement("div");
+
+            movieCard.classList.add("movie-card");
+
+            const poster = movie.poster_path
+                ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                : "https://via.placeholder.com/300x450?text=No+Image";
+
+            movieCard.innerHTML = `
+                <img src="${poster}" alt="${movie.title}">
+
+                <h3>${movie.title}</h3>
+
+                <p>⭐ ${(movie.vote_average / 2).toFixed(1)} / 5</p>
+
+                <p>${movie.release_date || "Unknown"}</p>
+            `;
+
+            movieCard.addEventListener("click", () => {
+                window.location.href = `movie.html?id=${movie.id}`;
+            });
+
+            moviesDiv.appendChild(movieCard);
+
+        });
+
+        document.getElementById("pageNumber").textContent =
+            `Page ${currentPage} of ${totalPages}`;
+
+        document.getElementById("prevBtn").disabled =
+            currentPage === 1;
+
+        document.getElementById("nextBtn").disabled =
+            currentPage === totalPages;
+
+    } catch (error) {
+
+        moviesDiv.innerHTML = `
+            <p>${error.message}</p>
+        `;
+
+    }
+
 }
+
+// Previous Page
+
+function previousPage() {
+
+    if (currentPage > 1) {
+        loadMovies(currentPage - 1);
+    }
+
+}
+
+// Next Page
+
+function nextPage() {
+
+    if (currentPage < totalPages) {
+        loadMovies(currentPage + 1);
+    }
+
+}
+
+// Search on Enter
 
 document
-  .getElementById("searchInput")
-  .addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-      searchMovie();
-    }
-  });
+    .getElementById("searchInput")
+    .addEventListener("keypress", function (e) {
+
+        if (e.key === "Enter") {
+            searchMovie();
+        }
+
+    });
+
+// Load Movies
 
 loadMovies();
 
-// navbar
+
+// Navbar Animation
 
 let lastScrollTop = 0;
+
 const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
@@ -96,21 +224,26 @@ window.addEventListener("scroll", () => {
     let currentScroll =
         window.pageYOffset || document.documentElement.scrollTop;
 
-    // Always show  
-    if (currentScroll <= 180) {
+    if (currentScroll <= 150) {
+
         navbar.style.top = "0";
+
         lastScrollTop = currentScroll;
+
         return;
+
     }
 
-    // Hide
     if (currentScroll > lastScrollTop) {
+
         navbar.style.top = "-80px";
-    }
-    // Show up
-    else {
+
+    } else {
+
         navbar.style.top = "0";
+
     }
 
     lastScrollTop = currentScroll;
+
 });

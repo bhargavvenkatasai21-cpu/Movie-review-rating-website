@@ -9,9 +9,17 @@
 </head>
 <body>
 
+    <div id="toast"></div>
+
     <nav class="navbar">
 
-        <h1 class="logo">🎬 Movie Review  </h1>
+       <h1
+    class="logo"
+    onclick="window.location.href='index.html'"
+    style="cursor: pointer;"
+>
+    🎬 Movie Review
+</h1>
 
         <div class="nav-right">
 
@@ -26,7 +34,7 @@
             </button>
 
             <button onclick="window.location.href='profile.html'">
-             👤 Profile
+              Profile
             </button>
 
             <button id="logoutBtn" onclick="logout()">
@@ -49,7 +57,24 @@
 
     <div id="movies" class="movies-container"></div>
 
+    <div class="pagination">
+
+    <button id="prevBtn" onclick="previousPage()">
+        ⬅ Previous
+    </button>
+
+    <span id="pageNumber">
+        Page 1
+    </span>
+
+    <button id="nextBtn" onclick="nextPage()">
+        Next ➡
+    </button>
+
+</div>
+
     <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
 
 </body>
 </html>

@@ -18,21 +18,27 @@
     
     <nav class="navbar">
 
-        <h1 class="logo">🎬 Movie Review System</h1>
+        <h1
+    class="logo"
+    onclick="window.location.href='index.html'"
+    style="cursor: pointer;"
+>
+    🎬 Movie Review
+</h1>
 
         <div class="nav-right">
 
             <button
                 type="button"
                 onclick="window.location.href='index.html'">
-                🏠 Home
+                 Home
             </button>
 
             <button
                 type="button"
                 id="logoutBtn"
                 onclick="logout()">
-                🚪 Logout
+                 Logout
             </button>
 
         </div>
@@ -118,7 +124,7 @@
  
 
     <script src="js/movie.js"></script>
+    <script src="js/common.js"></script>
 
 </body>
-
 </html>
