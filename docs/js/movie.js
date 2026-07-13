@@ -1,16 +1,18 @@
-const token = localStorage.getItem("token");
+ requireLogin();
 
-if (!token) {
-    window.location.href = "login.html";
-}
-
-const currentUser = JSON.parse(localStorage.getItem("user"));
+const token = getToken();
+const currentUser = getCurrentUser();
 
 const params = new URLSearchParams(window.location.search);
 const movieId = params.get("id");
 
 const movieDetails = document.getElementById("movieDetails");
 const reviewsDiv = document.getElementById("reviews");
+const favoriteBtn = document.getElementById("favoriteBtn");
+
+let currentMovie = null;
+let isFavorite = false;
+
 
 if (!movieId) {
     movieDetails.innerHTML = "<h2>Movie not found.</h2>";
@@ -20,11 +22,13 @@ if (!movieId) {
 // Load Movie Details
 async function loadMovieDetails() {
     try {
-        const response = await fetch(
-            `https://movie-review-rating-website.onrender.com/api/movies/${movieId}`
-        );
+        const response = await fetch( 
+            `${API}/movies/${movieId}`
+             );
 
         const movie = await response.json();
+
+        currentMovie = movie;
 
         if (!response.ok) {
             movieDetails.innerHTML = `
@@ -95,7 +99,7 @@ async function loadReviews() {
     try {
 
         const response = await fetch(
-            `https://movie-review-rating-website.onrender.com/api/reviews/${movieId}`
+            `${API}/reviews/${movieId}`
         );
 
         if (!response.ok) {
@@ -184,15 +188,7 @@ async function loadReviews() {
 
 // Add Review
 async function addReview() {
-
-    // const token = localStorage.getItem("token"); 
-
-    if (!token) {
-         showToast("Please login first.", "#ef4444");
-
-        return;
-    }
-
+ 
     const rating = Number(ratingInput.value);
     const review = document.getElementById("review").value.trim();
 
@@ -209,7 +205,7 @@ async function addReview() {
     try {
 
         const response = await fetch(
-            "https://movie-review-rating-website.onrender.com/api/reviews",
+            `${API}/reviews`,
             {
                 method: "POST",
                 headers: {
@@ -256,31 +252,6 @@ async function addReview() {
     submitBtn.textContent = "Submit Review";
 
 }
-}
-
-// Logout
-function logout() {
-
-    // Show success message
-    showToast("Logout successful!");
-
-    // Prevent multiple clicks
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    if (logoutBtn) {
-        logoutBtn.disabled = true;
-        logoutBtn.textContent = "Logging out...";
-    }
-
-    // Clear user data
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    // Redirect after toast is visible
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 1800);
-
 }
  
  // Star Rating
@@ -376,7 +347,7 @@ async function deleteReview(reviewId, button) {
     try {
 
         const response = await fetch(
-            `https://movie-review-rating-website.onrender.com/api/reviews/${reviewId}`,
+            `${API}/reviews/${reviewId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -435,7 +406,7 @@ async function editReview(reviewId, currentRating, currentReview) {
     try {
 
         const response = await fetch(
-            `https://movie-review-rating-website.onrender.com/api/reviews/${reviewId}`,
+            `${API}/reviews/${reviewId}`,
             {
                 method: "PUT",
                 headers: {
@@ -461,6 +432,83 @@ async function editReview(reviewId, currentRating, currentReview) {
         showToast("Review updated successfully!");
 
         await loadReviews();
+
+    } catch (error) {
+
+        showToast(error.message, "#ef4444");
+
+    }
+
+}
+
+//favorites
+
+async function toggleFavorite() {
+
+    try {
+
+        let response;
+
+        if (!isFavorite) {
+
+            response = await fetch(
+                `${API}/favorites`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+
+                        movieId: currentMovie.id,
+                        title: currentMovie.title,
+                        poster: currentMovie.poster_path,
+                        rating: currentMovie.vote_average
+
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                showToast(data.message, "#ef4444");
+                return;
+            }
+
+            isFavorite = true;
+
+            favoriteBtn.innerHTML = "❤️ Remove from Favorites";
+
+            showToast("Added to Favorites!");
+
+        } else {
+
+            response = await fetch(
+                `${API}/favorites/${currentMovie.id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                showToast(data.message, "#ef4444");
+                return;
+            }
+
+            isFavorite = false;
+
+            favoriteBtn.innerHTML = "🤍 Add to Favorites";
+
+            showToast("Removed from Favorites!");
+
+        }
 
     } catch (error) {
 

@@ -805,3 +805,46 @@ button:hover{
     text-decoration:underline;
 
 }
+
+.favorite-section {
+
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+
+}
+
+#favoriteBtn {
+
+    background: #2563eb;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 14px 30px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+
+}
+
+#favoriteBtn:hover {
+
+    background: #be123c;
+
+    transform: translateY(-3px);
+
+}
+
+#favoriteBtn:active {
+
+    transform: scale(.98);
+
+}
