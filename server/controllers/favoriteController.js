@@ -109,10 +109,42 @@ const removeFavorite = async (req, res) => {
 
 };
 
+// Check Favorite
+
+const checkFavorite = async (req, res) => {
+
+    try {
+
+        const favorite = await Favorite.findOne({
+
+            movieId: req.params.movieId,
+            userId: req.user.id
+
+        });
+
+        res.status(200).json({
+
+            isFavorite: !!favorite
+
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
+
+};
+
 module.exports = {
 
     addFavorite,
     getFavorites,
-    removeFavorite
+    removeFavorite,
+    checkFavorite
 
 };

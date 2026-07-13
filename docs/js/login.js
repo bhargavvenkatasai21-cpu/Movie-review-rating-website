@@ -6,7 +6,7 @@ async function login() {
     try {
 
         const response = await fetch(
-            "https://movie-review-rating-website.onrender.com/api/auth/login",
+            `${API}/auth/login`,
             {
                 method: "POST",
                 headers: {

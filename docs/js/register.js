@@ -7,7 +7,7 @@ async function register() {
     try {
 
         const response = await fetch(
-            "https://movie-review-rating-website.onrender.com/api/auth/register",
+            `${API}/auth/register`,
             {
                 method: "POST",
                 headers: {

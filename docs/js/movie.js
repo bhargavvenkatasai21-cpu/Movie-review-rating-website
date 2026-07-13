@@ -94,6 +94,36 @@ async function loadMovieDetails() {
     }
 }
 
+//favorites check 
+async function checkFavorite() {
+
+    try {
+
+        const response = await fetch(
+            `${API}/favorites/check/${movieId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        isFavorite = data.isFavorite;
+
+        favoriteBtn.innerHTML = isFavorite
+            ? "❤️ Remove from Favorites"
+            : "🤍 Add to Favorites";
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
 // Load Reviews
 async function loadReviews() {
     try {
@@ -521,4 +551,5 @@ async function toggleFavorite() {
 if (movieId) {
     loadMovieDetails();
     loadReviews();
+    checkFavorite();
 }

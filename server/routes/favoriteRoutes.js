@@ -4,7 +4,8 @@ const router = express.Router();
 const {
     addFavorite,
     getFavorites,
-    removeFavorite
+    removeFavorite,
+    checkFavorite
 } = require("../controllers/favoriteController");
 
 const { protect } = require("../middleware/authMiddleware");
@@ -12,6 +13,8 @@ const { protect } = require("../middleware/authMiddleware");
 router.post("/", protect, addFavorite);
 
 router.get("/", protect, getFavorites);
+
+router.get("/check/:movieId", protect, checkFavorite);
 
 router.delete("/:movieId", protect, removeFavorite);
 
