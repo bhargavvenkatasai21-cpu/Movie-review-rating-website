@@ -1,79 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Profile</title>
-
+    <title>My Profile - Movie Review</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
 <body>
 
     <div id="toast"></div>
-  
-    <nav class="navbar">
 
-        <h1
-    class="logo"
-    onclick="window.location.href='index.html'"
-    style="cursor: pointer;"
->
-    🎬 Movie Review
-</h1>
+    <nav class="navbar">
+        <h1 class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            🎬 Movie Review
+        </h1>
 
         <div class="nav-right">
-
-            <button onclick="window.location.href='index.html'">
-                 Home
-            </button>
-
-             <button id="logoutBtn" onclick="logout()">
-                Logout
-            </button>
-
+            <button type="button" onclick="window.location.href='index.html'">Home</button>
+            <button type="button" class="theme-toggle-btn" onclick="toggleTheme()">🌙 Dark</button>
+            <button type="button" id="logoutBtn" onclick="logout()">Logout</button>
         </div>
-
     </nav>
- 
 
+    <!-- User Profile Header & Stats -->
     <section class="profile-section">
-
-        <h2> My Profile</h2>
-
-        <div id="profileCard"></div>
-
+        <div class="profile-header-card">
+            <div class="profile-user-info">
+                <div id="avatarBadge" class="avatar-badge">👤</div>
+                <div class="profile-details">
+                    <h2 id="userName">User</h2>
+                    <p id="userEmail">user@example.com</p>
+                </div>
+            </div>
+            <div class="profile-stats">
+                <div class="stat-box">
+                    <div id="reviewsCount" class="stat-num">0</div>
+                    <div class="stat-label">Reviews</div>
+                </div>
+                <div class="stat-box">
+                    <div id="favoritesCount" class="stat-num">0</div>
+                    <div class="stat-label">Favorites</div>
+                </div>
+            </div>
+        </div>
     </section>
- 
 
-    <section class="review-section">
-
-        <h2>📝 My Reviews</h2>
-
-        <div id="myReviews"></div>
-
+    <!-- User Reviews Section -->
+    <section class="profile-section">
+        <div class="review-section">
+            <h2>📝 My Reviews</h2>
+            <div id="myReviews">
+                <p style="color: var(--text-muted);">Loading your reviews...</p>
+            </div>
+        </div>
     </section>
 
-    <section class="review-section">
+    <!-- Favorites Section -->
+    <section class="profile-section">
+        <div class="review-section">
+            <h2>❤️ My Favorites</h2>
+            <div id="myFavorites">
+                <p style="color: var(--text-muted);">Loading your favorite movies...</p>
+            </div>
+        </div>
+    </section>
 
-    <h2>❤️ My Favorites</h2>
+    <!-- Edit Review Modal Dialog for Profile Page -->
+    <dialog id="profileEditModal" class="modal-dialog">
+        <div class="modal-header">
+            <h3>✏ Edit Your Review</h3>
+            <button type="button" class="close-btn" onclick="closeProfileEditModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <label>Rating</label>
+            <div class="star-rating" id="profileEditStarRating">
+                <span class="star profile-modal-star" data-value="1">&#9733;</span>
+                <span class="star profile-modal-star" data-value="2">&#9733;</span>
+                <span class="star profile-modal-star" data-value="3">&#9733;</span>
+                <span class="star profile-modal-star" data-value="4">&#9733;</span>
+                <span class="star profile-modal-star" data-value="5">&#9733;</span>
+            </div>
+            <p id="profileEditRatingText">Select rating</p>
+            <input type="hidden" id="profileEditRatingInput">
 
-    <div id="myFavorites">
+            <label for="profileEditReviewText">Review</label>
+            <textarea id="profileEditReviewText" rows="4" placeholder="Update your review content..."></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeProfileEditModal()">Cancel</button>
+            <button type="button" id="saveProfileEditBtn" onclick="saveProfileEditedReview()">Save Changes</button>
+        </div>
+    </dialog>
 
-        <p>Loading favorites...</p>
+    <!-- Delete Review Confirmation Modal Dialog for Profile Page -->
+    <dialog id="profileDeleteModal" class="modal-dialog">
+        <div class="modal-header">
+            <h3>🗑 Delete Review</h3>
+            <button type="button" class="close-btn" onclick="closeProfileDeleteModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color: var(--text-sub); font-size: 15px;">Are you sure you want to delete this review? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeProfileDeleteModal()">Cancel</button>
+            <button type="button" id="confirmProfileDeleteBtn" class="btn-delete" style="background: var(--accent-gradient) !important; color: white !important;">Delete Review</button>
+        </div>
+    </dialog>
 
-    </div>
-
-</section>
+    <!-- Remove Favorite Confirmation Modal Dialog -->
+    <dialog id="profileRemoveFavoriteModal" class="modal-dialog">
+        <div class="modal-header">
+            <h3>🤍 Remove Favorite</h3>
+            <button type="button" class="close-btn" onclick="closeProfileRemoveFavModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color: var(--text-sub); font-size: 15px;">Remove this movie from your favorites list?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeProfileRemoveFavModal()">Cancel</button>
+            <button type="button" id="confirmProfileRemoveFavBtn" class="btn-delete" style="background: var(--accent-gradient) !important; color: white !important;">Remove Favorite</button>
+        </div>
+    </dialog>
 
     <script src="js/common.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/profile.js"></script>
-
 </body>
-
 </html>

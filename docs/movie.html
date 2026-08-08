@@ -2,14 +2,10 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Movie Details</title>
-
+    <title>Movie Details - Movie Review</title>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
@@ -17,129 +13,116 @@
     <div id="toast"></div> 
     
     <nav class="navbar">
-
-        <h1
-    class="logo"
-    onclick="window.location.href='index.html'"
-    style="cursor: pointer;"
->
-    🎬 Movie Review
-</h1>
+        <h1 class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            🎬 Movie Review
+        </h1>
 
         <div class="nav-right">
-
-            <button
-                type="button"
-                onclick="window.location.href='index.html'">
-                 Home
+            <button type="button" onclick="window.location.href='index.html'">
+                Home
             </button>
-
-            <button onclick="window.location.href='profile.html'">
-              Profile
+            <button type="button" onclick="window.location.href='profile.html'">
+                Profile
             </button>
-
-            <button
-                type="button"
-                id="logoutBtn"
-                onclick="logout()">
-                 Logout
+            <button type="button" class="theme-toggle-btn" onclick="toggleTheme()">
+                🌙 Dark
             </button>
-
+            <button type="button" id="logoutBtn" onclick="logout()">
+                Logout
+            </button>
         </div>
-
     </nav>
 
-
-          <!-- Movie Details -->
- 
+    <!-- Movie Details -->
     <section class="movie-section">
-
         <div id="movieDetails">
-
             <p>Loading movie details...</p>
-
         </div>
-
     </section>
 
+    <!-- Favorites Trigger -->
     <section class="favorite-section">
+        <button id="favoriteBtn" onclick="toggleFavorite()">
+            🤍 Add to Favorites
+        </button>
+    </section>
 
-    <button
-        id="favoriteBtn"
-        onclick="toggleFavorite()"
-    >
-        🤍 Add to Favorites
-    </button>
-
-</section>
-
-
-          <!-- Add Review -->
- 
+    <!-- Add Review -->
     <section class="review-section">
-
         <h2>⭐ Add Your Review</h2>
-
         <div class="review-form">
-
-            <label for="rating">Rating</label>
-
-            <div class="star-rating">
-
+            <label>Rating</label>
+            <div class="star-rating" id="addStarRating">
                 <span class="star" data-value="1">&#9733;</span>
                 <span class="star" data-value="2">&#9733;</span>
                 <span class="star" data-value="3">&#9733;</span>
                 <span class="star" data-value="4">&#9733;</span>
                 <span class="star" data-value="5">&#9733;</span>
-
             </div>
-
-            <p id="rating-text">
-                Select your rating
-            </p>
-
-            <input
-                type="hidden"
-                id="rating"
-            >
+            <p id="rating-text">Select your rating</p>
+            <input type="hidden" id="rating">
 
             <label for="review">Review</label>
+            <textarea id="review" rows="4" placeholder="Write your thoughts about this movie..."></textarea>
 
-            <textarea
-                id="review"
-                rows="5"
-                placeholder="Write your review here..."
-            ></textarea>
-
-            <button
-                type="button"
-                id="submitReviewBtn"
-                onclick="addReview()">
+            <button type="button" id="submitReviewBtn" onclick="addReview()">
                 Submit Review
             </button>
-
         </div>
-
     </section>
 
-
-          <!-- User Reviews -->
- 
+    <!-- User Reviews List -->
     <section class="review-section">
-
         <h2>📝 User Reviews</h2>
-
         <div id="reviews">
-
             <p>Loading reviews...</p>
-
         </div>
-
     </section>
- 
+
+    <!-- Edit Review Modal Dialog -->
+    <dialog id="editReviewModal" class="modal-dialog">
+        <div class="modal-header">
+            <h3>✏ Edit Your Review</h3>
+            <button type="button" class="close-btn" onclick="closeEditModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <label>Updated Rating</label>
+            <div class="star-rating" id="editModalStarRating">
+                <span class="star modal-star" data-value="1">&#9733;</span>
+                <span class="star modal-star" data-value="2">&#9733;</span>
+                <span class="star modal-star" data-value="3">&#9733;</span>
+                <span class="star modal-star" data-value="4">&#9733;</span>
+                <span class="star modal-star" data-value="5">&#9733;</span>
+            </div>
+            <p id="editModalRatingText">Select rating</p>
+            <input type="hidden" id="editModalRating">
+
+            <label for="editModalReviewText">Updated Review</label>
+            <textarea id="editModalReviewText" rows="4" placeholder="Update your review content..."></textarea>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+            <button type="button" id="saveEditReviewBtn" onclick="saveEditedReview()">Save Changes</button>
+        </div>
+    </dialog>
+
+    <!-- Delete Confirmation Modal Dialog -->
+    <dialog id="deleteConfirmModal" class="modal-dialog">
+        <div class="modal-header">
+            <h3>🗑 Delete Review</h3>
+            <button type="button" class="close-btn" onclick="closeDeleteModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color: var(--text-sub); font-size: 15px;">Are you sure you want to delete this review? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+            <button type="button" id="confirmDeleteBtn" class="btn-delete" style="background: var(--accent-gradient) !important; color: white !important;">Delete Review</button>
+        </div>
+    </dialog>
+
     <script src="js/common.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/movie.js"></script>
-
 </body>
 </html>

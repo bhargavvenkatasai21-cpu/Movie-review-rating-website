@@ -29,7 +29,7 @@ const getPopularMovies = async (req, res) => {
 
     res.status(200).json({
       page: response.data.page,
-      totalPages: response.data.total_pages,
+      totalPages: Math.min(response.data.total_pages || 500, 500),
       totalResults: response.data.total_results,
       results: response.data.results
     });

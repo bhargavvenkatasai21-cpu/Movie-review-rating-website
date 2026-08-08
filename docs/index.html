@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Review Website</title>
-
+    <title>Movie Review - Discover & Review Movies</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,70 +11,45 @@
     <div id="toast"></div>
 
     <nav class="navbar">
-
-       <h1
-    class="logo"
-    onclick="window.location.href='index.html'"
-    style="cursor: pointer;"
->
-    🎬 Movie Review
-</h1>
+        <h1 class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            🎬 Movie Review
+        </h1>
 
         <div class="nav-right">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search movies..."
-            >
-
-            <button onclick="searchMovie()">
-                Search
-            </button>
-
-            <button onclick="window.location.href='profile.html'">
-              Profile
-            </button>
-
-            <button id="logoutBtn" onclick="logout()">
-                Logout
-            </button>
-
+            <input type="text" id="searchInput" placeholder="Search movies...">
+            <button type="button" onclick="searchMovie()">Search</button>
+            <button type="button" onclick="window.location.href='profile.html'">Profile</button>
+            <button type="button" class="theme-toggle-btn" onclick="toggleTheme()">🌙 Dark</button>
+            <button type="button" id="logoutBtn" onclick="logout()">Logout</button>
         </div>
-
     </nav>
 
     <section class="hero">
-
         <h2>Popular Movies</h2>
-
-        <p>
-            Search your favourite movies and share your reviews.
-        </p>
-
+        <p>Explore top movies, rate your favorites, and read community reviews.</p>
     </section>
 
+    <!-- Movies Grid -->
     <div id="movies" class="movies-container"></div>
 
-    <div class="pagination">
+    <!-- Sliding Window Pagination (5 Pages Window) -->
+    <div class="pagination-container">
+        <div class="pagination">
+            <button type="button" id="firstBtn" class="page-btn" onclick="goToPage(1)" title="First Page">« First</button>
+            <button type="button" id="prevBtn" class="page-btn" onclick="previousPage()" title="Previous Page">‹ Prev</button>
 
-    <button id="prevBtn" onclick="previousPage()">
-        ⬅ Previous
-    </button>
+            <!-- Dynamic 5 Page Window Container -->
+            <div id="paginationPages" class="pagination-pages"></div>
 
-    <span id="pageNumber">
-        Page 1
-    </span>
+            <button type="button" id="nextBtn" class="page-btn" onclick="nextPage()" title="Next Page">Next ›</button>
+            <button type="button" id="lastBtn" class="page-btn" onclick="goToLastPage()" title="Last Page">Last »</button>
+        </div>
+        <div id="paginationInfo" class="pagination-info">Page 1 of 500</div>
+    </div>
 
-    <button id="nextBtn" onclick="nextPage()">
-        Next ➡
-    </button>
-
-</div>
-
-   <script src="js/common.js"></script>
-   <script src="js/auth.js"></script>
-   <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
 
 </body>
 </html>
